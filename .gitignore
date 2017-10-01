@@ -102,3 +102,7 @@ ENV/
 
 # idea project files
 .idea
+
+# Windows/Mac temporary file
+.DS_Store
+desktop.ini
