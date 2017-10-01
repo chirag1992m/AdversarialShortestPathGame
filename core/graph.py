@@ -107,9 +107,10 @@ class GraphMapState(object):
     def move_edge(self, edge):
         if self.current_position == edge[0] and self.graph.is_edge(edge):
             self.current_position = edge[1]
-            return self.graph.get_edge_cost(edge)
+            cost = self.graph.get_edge_cost(edge)
         else:
-            return 0
+            cost = 0
+        return cost, self.current_position == self.end_node
 
     def node_cost_factor(self, node):
         return 1 + math.sqrt(self.graph.path_length(node, self.end_node))
