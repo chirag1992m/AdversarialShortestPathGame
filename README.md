@@ -91,6 +91,9 @@ You can directly edit the client bots given in the
 is a comment line `Add Agent Logic here` where you can make 
 your changes based on the updates and the game layout.
 
+Also, you can see the available options in the bit clients
+by adding the argument `-h` while running.
+
 ## Communication between server-client
 The communication is based on simple key-value based 
 dictionary which is serialized using cloudpickle for 
