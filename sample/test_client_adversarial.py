@@ -1,6 +1,21 @@
-from connector.client import Client
+from __future__ import print_function
+
 import random
 import math
+import argparse
+
+from connector.client import Client
+
+
+def get_args():
+    parser = argparse.ArgumentParser("Adversarial Client for the game")
+    parser.add_argument('--ip', default='127.0.0.1',
+                        help='IP address of the game server')
+    parser.add_argument('--port', default='8080',
+                        help='Port of the game server')
+    parser.add_argument('--name', default='Adversary',
+                        help='Name of the bot')
+    return parser.parse_args()
 
 
 def next_edge_to_increase_cost():
@@ -13,13 +28,14 @@ def next_edge_to_increase_cost():
 
 
 if __name__ == "__main__":
-    client = Client('127.0.0.1', 8080, 'Ojas', 1)
+    args = get_args()
+    client = Client(args.ip, args.port, args.name, 1)
     game = client.get_game()
 
     while True:
         start, end, factor = next_edge_to_increase_cost()
         update = client.send_cost_update(start, end, factor)
-        print update
+        print(update)
 
         if update['done']:
             break

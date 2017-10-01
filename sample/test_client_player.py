@@ -1,5 +1,20 @@
-from connector.client import Client
+from __future__ import print_function
+
+import argparse
 import random
+
+from connector.client import Client
+
+
+def get_args():
+    parser = argparse.ArgumentParser("Adversarial Client for the game")
+    parser.add_argument('--ip', default='127.0.0.1',
+                        help='IP address of the game server')
+    parser.add_argument('--port', default='8080',
+                        help='Port of the game server')
+    parser.add_argument('--name', default='Player',
+                        help='Name of the bot')
+    return parser.parse_args()
 
 
 def next_edge_to_move():
@@ -12,13 +27,14 @@ def next_edge_to_move():
 
 
 if __name__ == "__main__":
-    client = Client('127.0.0.1', 8080, 'Chirag', 0)
+    args = get_args()
+    client = Client(args.ip, args.port, args.name, 0)
     game = client.get_game()
 
     while True:
         start, end = next_edge_to_move()
         update = client.send_edge_move(start, end)
-        print update
+        print(update)
 
         if update['done']:
             break
