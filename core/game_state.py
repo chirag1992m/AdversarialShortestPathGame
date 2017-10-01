@@ -35,7 +35,7 @@ class Game(object):
         update = self.get_update(edge, cost, done, error)
         self.switch_player()
 
-        return update
+        return update, self.format_update(update)
 
     def get_update(self, edge, cost, done, error):
         update = dict()
@@ -49,8 +49,11 @@ class Game(object):
         update['position'] = self.graph_map.current_position
         return update
 
-    @staticmethod
-    def format_update(update):
+    def format_update(self, update):
+        if update['done']:
+            which = 0 if self.player[0].type == Gamer.Type.PLAYER else 1
+            return 'Game Done! \n Player has a total cost: {}'.format(
+                self.player[which].player_cost)
         if 'add_cost' in update:
             if update['add_cost']:
                 return 'Player moved from {} to {} adding cost {}'.format(update['edge'][0],

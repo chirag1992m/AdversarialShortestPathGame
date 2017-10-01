@@ -49,9 +49,6 @@ class Gamer(object):
                 cost, done = graph_map.move_edge(edge)
                 error = False
                 self.player_cost += cost
-
-                if done:
-                    print("Player ended with cost: {}".format(self.player_cost))
             else:
                 edge = move['node_1'], move['node_2']
                 cost_factor = move['cost_factor']
