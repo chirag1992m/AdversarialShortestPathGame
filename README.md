@@ -133,3 +133,6 @@ format:
     'new_cost': cost # New cost of the edge. If it is 0, the edge given doesn't exist or the cost factor given didn't confer to 1 + sqrt(k) rule
 }
 ```
+
+## Future Architecture Teams for Graph based games
+I have helpful guidance waiting for you [here](GraphBasedGamesArchitecture.md).
