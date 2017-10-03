@@ -11,7 +11,7 @@ def get_args():
     parser = argparse.ArgumentParser("Adversarial Client for the game")
     parser.add_argument('--ip', default='127.0.0.1',
                         help='IP address of the game server')
-    parser.add_argument('--port', default='8080',
+    parser.add_argument('--port', default=8080, type=int,
                         help='Port of the game server')
     parser.add_argument('--name', default='Adversary',
                         help='Name of the bot')
