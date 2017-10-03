@@ -106,7 +106,7 @@ which gives you a dictionary of the format:
 {
     'start_node': X,
     'end_node': Y,
-    'graph': adjacency_list_of_graph
+    'graph': dict(list(nodes)) # Adjacency Lists of the graph
 }
 ```
 
