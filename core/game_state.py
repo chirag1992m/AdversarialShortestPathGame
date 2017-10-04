@@ -29,13 +29,14 @@ class Game(object):
         self.game_running = False
 
     def make_move(self, move):
-        edge, cost, done, error = self.player[self.chance].make_move(self.graph_map, move)
+        edge, cost, done, error, time_left = self.player[self.chance].make_move(self.graph_map,
+                                                                                move)
         if done:
             self.end_game()
         update = self.get_update(edge, cost, done, error)
         self.switch_player()
 
-        return update, self.format_update(update)
+        return update, self.format_update(update, time_left)
 
     def get_update(self, edge, cost, done, error):
         update = dict()
@@ -49,27 +50,30 @@ class Game(object):
         update['position'] = self.graph_map.current_position
         return update
 
-    def format_update(self, update):
+    def format_update(self, update, time_left):
         if update['done']:
             which = 0 if self.player[0].type == Gamer.Type.PLAYER else 1
             return 'Game Done! \n Player has a total cost: {}'.format(
                 self.player[which].player_cost)
         if 'add_cost' in update:
             if update['add_cost']:
-                return 'Player moved from {} to {} adding cost {}'.format(update['edge'][0],
-                                                                          update['edge'][1],
-                                                                          update['add_cost'])
+                ret = 'Player moved from {} to {} adding cost {}'.format(update['edge'][0],
+                                                                         update['edge'][1],
+                                                                         update['add_cost'])
             else:
-                return 'Player made an empty movement for edge {}, {}'.format(update['edge'][0],
+                 ret = 'Player made an empty movement for edge {}, {}'.format(update['edge'][0],
                                                                               update['edge'][1])
         else:
             if update['new_cost']:
-                return 'Adversary made edge {}, {} cost to {}'.format(update['edge'][0],
-                                                                      update['edge'][1],
-                                                                      update['new_cost'])
+                ret = 'Adversary made edge {}, {} cost to {}'.format(update['edge'][0],
+                                                                     update['edge'][1],
+                                                                     update['new_cost'])
             else:
-                return 'Adversary made an empty movement for edge {}, {}'.format(update['edge'][0],
-                                                                                 update['edge'][1])
+                ret = 'Adversary made an empty movement for edge {}, {}'.format(update['edge'][0],
+                                                                                update['edge'][1])
+
+        ret += '. Time left: {}'.format(time_left)
+        return ret
 
     def full_state(self):
         return {

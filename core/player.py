@@ -20,7 +20,7 @@ class Gamer(object):
         self.type = gamer_type
         self.name = Gamer.Type.tostring(self.type)
         self.player_time = None
-        self.time_available = 2
+        self.time_available = 120
         self.player_cost = 0
 
     def get_last_move(self):
@@ -30,10 +30,12 @@ class Gamer(object):
         self.player_time = time.time()
 
     def time_left(self):
-        return 2. - (time.time() - self.player_time)
+        self.time_available -= time.time() - self.player_time
+        self.player_time = None
+        return self.time_available
 
     def switch_player(self):
-        self.player_time = None
+        pass
 
     def set_name(self, name):
         self.name = name
@@ -55,4 +57,4 @@ class Gamer(object):
                 cost = graph_map.update_edge(edge, cost_factor)
                 done, error = False, False
 
-        return edge, cost, done, error
+        return edge, cost, done, error, self.time_available

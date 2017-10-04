@@ -32,8 +32,9 @@ then A might be able to make that path very expensive.
 - Both A and P will be told the layout of the graph 
 (which will be fixed for the entire game) 
 and the source and destination nodes.
-- Both A and P has a time limit of 2 seconds to make their
-move or the game will run out of time and will end abruptly.
+- Both A and P has a time limit of 2 minutes in **total** 
+over the full game to make their move or the 
+bot will run out of time and the game will end abruptly.
 - If P or A makes a move involving an edge or position which
 does not exist or cannot be traversed or the cost factor by 
 adversary is wrong, their move will silently be ignored.
