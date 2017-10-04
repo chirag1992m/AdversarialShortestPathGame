@@ -26,4 +26,4 @@ class GameLooper(object):
             move = self.server.receive(self.game.chance)
             update, status = self.game.make_move(move)
             self.server.send_update(update)
-            print('\n' + status + '\n')
+            print(status + '\n')

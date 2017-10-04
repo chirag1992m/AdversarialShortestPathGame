@@ -41,7 +41,7 @@ smoothly.
 
 This directory contains files which helps in all the
 communications between the server and bot clients. Both 
-client and server uses cloudpickle for easy serializing of
+client and server uses json for easy serializing of
 data to be sent over the socket.
 
 - [server.py](connector/server.py) is the game server and opens

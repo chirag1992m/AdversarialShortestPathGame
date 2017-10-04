@@ -1,5 +1,5 @@
 import socket
-import cloudpickle
+import json
 
 
 class Server(object):
@@ -17,10 +17,22 @@ class Server(object):
 
     def send_update(self, data):
         for sck in self.sockets:
-            sck.sendall(cloudpickle.dumps(data))
+            sck.sendall(json.dumps(data))
+
+    @staticmethod
+    def byteify(input):
+        if isinstance(input, dict):
+            return {Server.byteify(key): Server.byteify(value)
+                    for key, value in input.iteritems()}
+        elif isinstance(input, list):
+            return [Server.byteify(element) for element in input]
+        elif isinstance(input, unicode):
+            return input.encode('utf-8')
+        else:
+            return input
 
     def receive(self, which):
-        return cloudpickle.loads(self.sockets[which].recv(1024))
+        return Server.byteify(json.loads(self.sockets[which].recv(1024)))
 
     def close(self):
         self.socket.close()

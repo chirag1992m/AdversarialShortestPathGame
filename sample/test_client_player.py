@@ -35,6 +35,10 @@ if __name__ == "__main__":
         start, end = next_edge_to_move()
         update = client.send_edge_move(start, end)
         print(update)
-
         if update['done']:
+            break
+
+        adversaries_move = client.receive_data()
+        print(adversaries_move)
+        if adversaries_move['done']:
             break

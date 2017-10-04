@@ -88,18 +88,18 @@ class GraphMapState(object):
     @staticmethod
     def init_from_textfile(filepath):
         with open(filepath, 'r') as f:
-            lines = [(line.rstrip('\n')).strip() for line in f.readlines()]
+            lines = [(line.strip('\n')).strip() for line in f.readlines()]
             # First line is the start edge
-            start_node = int(lines[0].split(':')[1])
+            start_node = (lines[0].split(':')[1]).strip()
             # second line is the end edge
-            end_node = int(lines[1].split(':')[1])
+            end_node = (lines[1].split(':')[1]).strip()
 
             # Third line is the header
             # From fourth line to the end of file, it should be edges
             edges = []
             for line in lines[3:]:
                 if len(line) > 0:
-                    edge = tuple(map(int, line.split(' ')))
+                    edge = line.split(' ')
                     assert len(edge) == 2, 'File has wrong edge'
                     edges.append(edge)
 
@@ -132,7 +132,7 @@ class GraphMapState(object):
 
 
 if __name__ == "__main__":
-    graph_map = GraphMapState.init_from_textfile('advshort.txt')
+    graph_map = GraphMapState.init_from_textfile('sample/advshort.txt')
     print(vars(graph_map))
     print(vars(graph_map.graph))
     print(graph_map.graph.path_length(graph_map.start_node, graph_map.end_node))

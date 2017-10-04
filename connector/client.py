@@ -1,5 +1,5 @@
 import socket
-import cloudpickle
+import json
 
 
 class Client:
@@ -16,10 +16,22 @@ class Client:
         self.close()
 
     def send_data(self, data):
-        self.socket.sendall(cloudpickle.dumps(data))
+        self.socket.sendall(json.dumps(data))
+
+    @staticmethod
+    def byteify(input):
+        if isinstance(input, dict):
+            return {Client.byteify(key): Client.byteify(value)
+                    for key, value in input.iteritems()}
+        elif isinstance(input, list):
+            return [Client.byteify(element) for element in input]
+        elif isinstance(input, unicode):
+            return input.encode('utf-8')
+        else:
+            return input
 
     def receive_data(self, size=1024):
-        return cloudpickle.loads(self.socket.recv(size))
+        return Client.byteify(json.loads(self.socket.recv(size)))
 
     def get_game(self):
         return self.receive_data(100000)

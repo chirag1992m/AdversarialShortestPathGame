@@ -42,7 +42,6 @@ adversary is wrong, their move will silently be ignored.
 
 ## Platform Requirement
 - Python >= 2.7
-- [cloudpickle](https://github.com/cloudpipe/cloudpickle)
 
 ## How to run Game Server
 To run the game with default options:
@@ -68,7 +67,7 @@ python -m game -h
 ## Run game bots
 Random strategy based game bots are given the [sample](sample)
 directory, namely [Player](sample/test_client_player.py) and
-[Adversary](sample/test_client_adversarial.py) which connect
+[Adversary](sample/test_client_adversary.py) which connect
 to the game server and randomly makes move based on the 
 current game layout.
 

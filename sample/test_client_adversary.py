@@ -32,10 +32,16 @@ if __name__ == "__main__":
     client = Client(args.ip, args.port, args.name, 1)
     game = client.get_game()
 
-    while True:
+    players_move = client.receive_data()
+    print(players_move)
+    done = players_move['done']
+    while not done:
         start, end, factor = next_edge_to_increase_cost()
         update = client.send_cost_update(start, end, factor)
         print(update)
-
         if update['done']:
             break
+
+        players_move = client.receive_data()
+        print(players_move)
+        done = players_move['done']
