@@ -36,9 +36,13 @@ and the source and destination nodes.
 over the full game to make their move or the 
 bot will run out of time and the game will end abruptly.
 - If P or A makes a move involving an edge or position which
-does not exist or cannot be traversed or the cost factor by 
-adversary is wrong, their move will silently be ignored.
+does not exist or cannot be traversed, their move will silently be ignored.
 - Cost of every edge initially is 1.0
+- By Default, the adversary would like the increase the cost
+of the edge as maximum as possible. Thus, given an edge by the
+adversary, the cost is scaled by 1 + max(sqrt(k_1), sqrt(k_2)) 
+where k_1 and k_2 are the minimum path lengths to the end node
+from nodes of the given edge.
 
 ## Platform Requirement
 - Python >= 2.7
@@ -96,7 +100,7 @@ by adding the argument `-h` while running.
 
 ## Communication between server-client
 The communication is based on simple key-value based 
-dictionary which is serialized using cloudpickle for 
+dictionary which is serialized using json for 
 transfer over the sockets.
 
 Initially, after you construct the client with the required
@@ -130,8 +134,18 @@ format:
     'edge': (node_1, node_2), # The edge affected
     'error': True/False, # Did the Adversary ran out of time?
     'position': Player_position, # The current position of the player which is obviously unchanged from the last update
-    'new_cost': cost # New cost of the edge. If it is 0, the edge given doesn't exist or the cost factor given didn't confer to 1 + sqrt(k) rule
+    'new_cost': cost # New cost of the edge. If it is 0, the edge given doesn't exist
 }
+```
+
+The bots make moves by directly calling the functions in the client
+class which are:
+```python
+# For player to move along an edge
+Client.send_edge_move(node_1, node_2)
+
+# For adversary to scale cost of an edge
+Client.send_cost_update(node_1, node_2)
 ```
 
 ## Future Architecture Teams for Graph based games

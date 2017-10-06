@@ -49,10 +49,9 @@ class Client:
         })
         return self.receive_data()
 
-    def send_cost_update(self, node_1, node_2, factor):
+    def send_cost_update(self, node_1, node_2):
         self.send_data({
             'node_1': node_1,
-            'node_2': node_2,
-            'cost_factor': factor
+            'node_2': node_2
         })
         return self.receive_data()

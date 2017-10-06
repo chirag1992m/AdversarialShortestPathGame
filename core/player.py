@@ -53,8 +53,7 @@ class Gamer(object):
                 self.player_cost += cost
             else:
                 edge = move['node_1'], move['node_2']
-                cost_factor = move['cost_factor']
-                cost = graph_map.update_edge(edge, cost_factor)
+                cost = graph_map.update_edge(edge)
                 done, error = False, False
 
         return edge, cost, done, error, self.time_available

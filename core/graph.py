@@ -117,16 +117,13 @@ class GraphMapState(object):
     def node_cost_factor(self, node):
         return 1 + math.sqrt(self.graph.path_length(node, self.end_node))
 
-    def is_factor_valid(self, edge, factor):
-        epsilon = 0.000001
-        if abs(factor - self.node_cost_factor(edge[0])) <= epsilon \
-                or abs(factor - self.node_cost_factor(edge[1])) <= epsilon:
-            return True
-        return False
+    def get_scale_factor(self, edge):
+        return max(self.node_cost_factor(edge[0]), self.node_cost_factor(edge[1]))
 
-    def update_edge(self, edge, factor):
+    def update_edge(self, edge):
         new_cost = 0
-        if self.is_factor_valid(edge, factor) and self.graph.is_edge(edge):
+        if self.graph.is_edge(edge):
+            factor = self.get_scale_factor(edge)
             new_cost = self.graph.scale_edge_cost(edge, factor)
         return new_cost
 

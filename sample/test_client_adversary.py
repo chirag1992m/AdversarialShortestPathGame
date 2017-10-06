@@ -24,7 +24,7 @@ def next_edge_to_increase_cost():
     """
     first_node = random.choice(game['graph'].keys())
     second_node = random.choice(game['graph'][first_node])
-    return first_node, second_node, math.sqrt(random.randint(0, 10))
+    return first_node, second_node
 
 
 if __name__ == "__main__":
@@ -36,8 +36,8 @@ if __name__ == "__main__":
     print(players_move)
     done = players_move['done']
     while not done:
-        start, end, factor = next_edge_to_increase_cost()
-        update = client.send_cost_update(start, end, factor)
+        start, end = next_edge_to_increase_cost()
+        update = client.send_cost_update(start, end)
         print(update)
         if update['done']:
             break
