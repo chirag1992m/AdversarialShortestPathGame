@@ -6,8 +6,9 @@ from core.graph import GraphMapState
 
 class Game(object):
     def __init__(self, game_file):
-        self.player = [Gamer(Gamer.Type.PLAYER), Gamer(Gamer.Type.ADVERSARY)]
         self.graph_map = GraphMapState.init_from_textfile(game_file)
+        self.player = [Gamer(Gamer.Type.PLAYER, len(self.graph_map.graph.nodes) + 1),
+                       Gamer(Gamer.Type.ADVERSARY, len(self.graph_map.graph.nodes) + 1)]
         self.chance = 0
         self.game_running = False
 

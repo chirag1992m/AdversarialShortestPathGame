@@ -43,6 +43,9 @@ of the edge as maximum as possible. Thus, given an edge by the
 adversary, the cost is scaled by 1 + max(sqrt(k_1), sqrt(k_2)) 
 where k_1 and k_2 are the minimum path lengths to the end node
 from nodes of the given edge.
+- Both, player and adversary, have a maximum of (number of nodes in
+graph + 1) moves to make including the empty moves. 
+After that, the game will end abruptly.
 
 ## Platform Requirement
 - Python >= 2.7
@@ -120,7 +123,7 @@ format:
 {
     'done': True/False, # If the game has ended or not
     'edge': (node_1, node_2), # The last edge moved
-    'error': True/False, # If the player ran out of time
+    'error': True/False, # If the player ran out of time, moves
     'position': Player_position, # The current position of the player P
     'add_cost': cost # Cost added by the players move. It will be 0 if the player didn't move any edge
 }
@@ -132,7 +135,7 @@ format:
 {
     'done': True/False, # is the game complete?
     'edge': (node_1, node_2), # The edge affected
-    'error': True/False, # Did the Adversary ran out of time?
+    'error': True/False, # Did the Adversary ran out of time, moves
     'position': Player_position, # The current position of the player which is obviously unchanged from the last update
     'new_cost': cost # New cost of the edge. If it is 0, the edge given doesn't exist
 }
