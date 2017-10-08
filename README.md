@@ -43,8 +43,8 @@ of the edge as maximum as possible. Thus, given an edge by the
 adversary, the cost is scaled by 1 + max(sqrt(k_1), sqrt(k_2)) 
 where k_1 and k_2 are the minimum path lengths to the end node
 from nodes of the given edge.
-- Both, player and adversary, have a maximum of (number of nodes in
-graph + 1) moves to make including the empty moves. 
+- Both, player and adversary, have a maximum of ( 2 * number of nodes in
+graph) moves to make including the empty moves. 
 After that, the game will end abruptly.
 
 ## Platform Requirement
