@@ -118,7 +118,7 @@ class GraphMapState(object):
         return 1 + math.sqrt(self.graph.path_length(node, self.end_node))
 
     def get_scale_factor(self, edge):
-        return max(self.node_cost_factor(edge[0]), self.node_cost_factor(edge[1]))
+        return min(self.node_cost_factor(edge[0]), self.node_cost_factor(edge[1]))
 
     def update_edge(self, edge):
         new_cost = 0
