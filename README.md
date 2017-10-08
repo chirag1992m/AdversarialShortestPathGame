@@ -17,9 +17,10 @@ graph (max size of 1000 nodes) whose bi-directional edges have
 costs. Each time P traverses an edge, adversary A knows 
 where the player is and can increase the cost of 
 `any` edge e by a multiplicative factor of ``1 + sqrt(k)`` 
-where k is the minimum path length (and not the cost of path) 
-from either node in e to Y. Thus, in P needs to minimize it's
-path cost and adversary has to maximize P's path cost.
+where k is the maximum of the minimum path length (and not the 
+cost of path)  from either node in e to Y. Thus, in P needs 
+to minimize it's path cost and adversary has to maximize P's 
+path cost.
 
 ## Things to keep in mind
 - Adversary A can affect the same edge e more than once 
